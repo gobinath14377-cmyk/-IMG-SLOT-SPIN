@@ -30,7 +30,7 @@ jobs:
 
       - name: Extract project
         run: |
-          unzip -q IMG_SLOT_SPIN_GITHUB_UPDATE_FULLSCREEN_ALARM.zip -d source
+          unzip -q IMG_SLOT_SPIN_NATIVE_ALARM_BRIDGE_FIXED.zip -d source
 
       - name: Find Android project
         run: |
