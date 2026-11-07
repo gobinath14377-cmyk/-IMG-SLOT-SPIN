@@ -1,0 +1,45 @@
+
+name: Build IMG SLOT SPIN APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Extract project
+        run: |
+          unzip -q IMG_SLOT_SPIN_GITHUB_BUILD_PROJECT-1.zip -d source
+          find source -name settings.gradle -o -name settings.gradle.kts
+
+      - name: Build APK
+        run: |
+          PROJECT_DIR=$(dirname "$(find source -name settings.gradle -o -name settings.gradle.kts | head -n 1)")
+          cd "$PROJECT_DIR"
+          gradle --no-daemon assembleDebug
+
+      - name: Save APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: IMG-SLOT-SPIN-APK
+          path: source/**/build/outputs/apk/debug/*.apk
