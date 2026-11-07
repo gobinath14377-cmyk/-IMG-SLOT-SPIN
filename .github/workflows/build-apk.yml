@@ -1,4 +1,3 @@
-
 name: Build IMG SLOT SPIN APK
 
 on:
@@ -31,7 +30,7 @@ jobs:
 
       - name: Extract project
         run: |
-          unzip -q IMG_SLOT_SPIN_GITHUB_BUILD_PROJECT-1.zip -d source
+          unzip -q IMG_SLOT_SPIN_GITHUB_UPDATE_FULLSCREEN_ALARM.zip -d source
 
       - name: Find Android project
         run: |
