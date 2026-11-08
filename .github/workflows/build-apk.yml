@@ -1,3 +1,4 @@
+
 name: Build IMG SLOT SPIN APK
 
 on:
@@ -28,30 +29,37 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Find and Extract Project ZIP
+      - name: Verify Project ZIP
         run: |
-          PROJECT_ZIP=$(find . -maxdepth 1 -type f -iname 'IMG_SLOT_SPIN_ALARM_SAVE*.zip' -print -quit)
+          PROJECT_ZIP="IMG_SLOT_SPIN_DAILY_ALARM_RELIABLE_V3.zip"
 
-          if [ -z "$PROJECT_ZIP" ]; then
-            echo "New Alarm Save ZIP file not found"
+          if [ ! -f "$PROJECT_ZIP" ]; then
+            echo "ERROR: Required project ZIP not found: $PROJECT_ZIP"
+            echo "ZIP files available in repository:"
+            find . -maxdepth 1 -type f -iname '*.zip'
             exit 1
           fi
 
-          echo "Found ZIP: $PROJECT_ZIP"
-          unzip -q "$PROJECT_ZIP" -d source
+          echo "Project ZIP found: $PROJECT_ZIP"
+
+      - name: Extract Project
+        run: |
+          mkdir -p source
+          unzip -q IMG_SLOT_SPIN_DAILY_ALARM_RELIABLE_V3.zip -d source
 
       - name: Find Android Project
         run: |
           SETTINGS_FILE=$(find source -type f \( -name settings.gradle -o -name settings.gradle.kts \) -print -quit)
 
           if [ -z "$SETTINGS_FILE" ]; then
-            echo "Android project settings file not found"
+            echo "ERROR: Android settings.gradle not found"
             exit 1
           fi
 
           echo "PROJECT_DIR=$(dirname "$SETTINGS_FILE")" >> "$GITHUB_ENV"
+          echo "Android project found: $SETTINGS_FILE"
 
-      - name: Build APK
+      - name: Build Debug APK
         run: |
           cd "$PROJECT_DIR"
           gradle --no-daemon assembleDebug
