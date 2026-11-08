@@ -20,7 +20,7 @@ jobs:
 
       - name: Check ZIP File
         run: |
-          PROJECT_ZIP="IMG_SLOT_SPIN_DAILY_ALARM_POSITIVE_MOTTO_FINAL_FIXED.zip"
+          PROJECT_ZIP="IMG_SLOT_SPIN_ALARM_ONLY_MOTTO_CORRECTED.zip"
 
           if [ ! -f "$PROJECT_ZIP" ]; then
             echo "ERROR: ZIP file not found: $PROJECT_ZIP"
@@ -42,7 +42,7 @@ jobs:
 
       - name: Extract Android Project
         run: |
-          unzip -q IMG_SLOT_SPIN_DAILY_ALARM_POSITIVE_MOTTO_FINAL_FIXED.zip -d source
+          unzip -q IMG_SLOT_SPIN_ALARM_ONLY_MOTTO_CORRECTED.zip -d source
 
       - name: Find Android Project
         run: |
