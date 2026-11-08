@@ -20,7 +20,7 @@ jobs:
 
       - name: Check ZIP File
         run: |
-          PROJECT_ZIP="IMG_SLOT_SPIN_ALARM_ONLY_MOTTO_CORRECTED.zip"
+          PROJECT_ZIP="IMG_SLOT_SPIN_ROYAL_ANIMATED_ALARM.zip"
 
           if [ ! -f "$PROJECT_ZIP" ]; then
             echo "ERROR: ZIP file not found: $PROJECT_ZIP"
@@ -42,7 +42,7 @@ jobs:
 
       - name: Extract Android Project
         run: |
-          unzip -q IMG_SLOT_SPIN_ALARM_ONLY_MOTTO_CORRECTED.zip -d source
+          unzip -q IMG_SLOT_SPIN_ROYAL_ANIMATED_ALARM.zip -d source
 
       - name: Find Android Project
         run: |
@@ -55,6 +55,8 @@ jobs:
 
           PROJECT_DIR=$(dirname "$SETTINGS_FILE")
           echo "PROJECT_DIR=$PROJECT_DIR" >> "$GITHUB_ENV"
+
+          echo "Android project found: $PROJECT_DIR"
 
       - name: Build APK
         run: |
